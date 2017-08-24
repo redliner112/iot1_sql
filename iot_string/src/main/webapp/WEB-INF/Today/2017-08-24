@@ -1,0 +1,27 @@
+리플렉션 개념
+JSTL
+command를 URL로 받겠다!
+
+url경로상에서 wqbinf는 없는경로다. 하지만 외부에서는 접근 가능하다.
+이젠 view에다가 jsp를 만들꺼니 url로 접근할수없고 그jsp를 바라보는 콘트롤러가 있어야한다.
+ TestController 가 그 콘트롤러를 하는것이고 test의 자식들이  
+ TestController의 아래것들이다.
+ jsp와 spring의 차이는 url로 jsp를 호출할수있냐 없냐의 차이다.
+ 
+ bean 태그는 레퍼런스 변수명
+ 
+ typeAliases type의 이름을 alias로 불러달라.
+ 
+ mapper<<중요.
+ 
+web1 - iotstring
+webcontent = webINF
+
+@autowired
+@service
+
+프리로딩 사용하기전에 메모리에 올라가있는것(호출단계까지 준비해놓는것)
+레이지로딩 호출하는순간 올라가는것
+
+디스패쳐 서블릿.
+expression 포인트컷.
