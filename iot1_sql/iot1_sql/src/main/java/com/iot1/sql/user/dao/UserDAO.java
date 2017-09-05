@@ -1,12 +1,10 @@
-package com.iot1.sql.user.service;
+package com.iot1.sql.user.dao;
 
 import java.util.List;
 
 import com.iot1.sql.user.dao.dto.UserInfo;
 
-public interface UserService {
-
-	public UserInfo login(UserInfo user);
+public interface UserDAO {
 
 	public UserInfo selectUser(UserInfo user);
 
@@ -14,7 +12,8 @@ public interface UserService {
 	
 	public int insertUser(UserInfo user);
 	
-	public int updatetUser(UserInfo user);
+	public int deletetUser(UserInfo user);
 	
-	public int deleteUser(UserInfo user);
+	public int updateUser(UserInfo user);
+
 }

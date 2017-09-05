@@ -1,4 +1,4 @@
-package com.iot1.sql.user.dto;
+package com.iot1.sql.user.dao.dto;
 
 import org.springframework.stereotype.Component;
 
@@ -13,9 +13,10 @@ public class UserInfo {
 	private String hp2;
 	private String hp3;
 	private String userPwd;
-	private int departNum;
 	private String userRoleLevel;
-	private String gender;
+	private char gender;
+	private int departNum;
+
 	public int getUserNum() {
 		return userNum;
 	}
@@ -70,31 +71,29 @@ public class UserInfo {
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	public int getDepartNum() {
-		return departNum;
-	}
-	public void setDepartNum(int departNum) {
-		this.departNum = departNum;
-	}
 	public String getUserRoleLevel() {
 		return userRoleLevel;
 	}
 	public void setUserRoleLevel(String userRoleLevel) {
 		this.userRoleLevel = userRoleLevel;
 	}
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
+	public int getDepartNum() {
+		return departNum;
+	}
+	public void setDepartNum(int departNum) {
+		this.departNum = departNum;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfo [userNum=" + userNum + ", userId=" + userId + ", userName=" + userName + ", age=" + age
 				+ ", address=" + address + ", hp1=" + hp1 + ", hp2=" + hp2 + ", hp3=" + hp3 + ", userPwd=" + userPwd
-				+ ", departNum=" + departNum + ", userRoleLevel=" + userRoleLevel + ", gender=" + gender + "]";
+				+ ", userRoleLevel=" + userRoleLevel + ", gender=" + gender + ", departNum=" + departNum + "]";
 	}
-	
-	
-	
 }
