@@ -22,4 +22,28 @@ public class GoodsServiceImpl  implements GoodsService{
 		return gDao.selectGoodsInfoList(gi);
 	}
 
+	@Override
+	public int insertGoodsInfoList(GoodsInfo[] gi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertGoodsInfo(GoodsInfo gi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateGoodsInfo(GoodsInfo gi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteGoodsInfo(GoodsInfo gi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
