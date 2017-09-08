@@ -13,7 +13,6 @@ public class VendorServiceImpl implements VendorService {
 	VendorDAO vDao;
 	@Override
 	public VendorInfo getVendorInfo(VendorInfo vi) {
-
 		return vDao.selectVendorInfo(vi);
 	}
 
@@ -22,4 +21,8 @@ public class VendorServiceImpl implements VendorService {
 		return vDao.selectVendorInfoList(vi);
 	}
 
+	@Override
+	public List<VendorInfo> getVendorInfoCombo() {
+		return vDao.selectVendorInfoCombo();
+	}
 }

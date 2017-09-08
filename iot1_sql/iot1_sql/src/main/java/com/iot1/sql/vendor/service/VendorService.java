@@ -9,4 +9,5 @@ public interface VendorService {
 	public VendorInfo getVendorInfo(VendorInfo vi);
 	
 	public List<VendorInfo> getVendorInfoList(VendorInfo vi);
+	public List<VendorInfo> getVendorInfoCombo();
 }

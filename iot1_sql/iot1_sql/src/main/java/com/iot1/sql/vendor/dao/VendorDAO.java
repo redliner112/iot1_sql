@@ -9,4 +9,6 @@ public interface VendorDAO {
 	public VendorInfo selectVendorInfo(VendorInfo vi);
 	
 	public List<VendorInfo> selectVendorInfoList(VendorInfo vi);
+	
+	public List<VendorInfo> selectVendorInfoCombo();
 }
