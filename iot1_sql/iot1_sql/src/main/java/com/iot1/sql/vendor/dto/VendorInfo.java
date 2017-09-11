@@ -6,7 +6,7 @@ public class VendorInfo {
 	private String viDesc;
 	private String viAddress;
 	private int viPhone;
-	private int viCredat;
+	private String viCredat;
 	private int viCretim;
 	public int getViNum() {
 		return viNum;
@@ -38,10 +38,10 @@ public class VendorInfo {
 	public void setViPhone(int viPhone) {
 		this.viPhone = viPhone;
 	}
-	public int getViCredat() {
+	public String getViCredat() {
 		return viCredat;
 	}
-	public void setViCredat(int viCredat) {
+	public void setViCredat(String viCredat) {
 		this.viCredat = viCredat;
 	}
 	public int getViCretim() {
@@ -57,5 +57,4 @@ public class VendorInfo {
 	}
 	
 	
-
 }

@@ -9,20 +9,24 @@
 <c:url var="vendorComboUrl" value = "/vendor/combo"/>
 
 <c:url var="vendorReadUrl" value = "/vendor/list"/>
+<c:url var="vendorCreateUrl" value="/vendor/create"/>
+<c:url var="vendorDeleteUrl" value="/vendor/delete" />
+<c:url var="vendorUpdateUrl" value="/vendor/update" />
 
 <title>Insert title here</title>
 </head>
 <body>
 <!--  -->
 <!--vendor의 value가 없을때 comboUrl로 이동하게 하는함수.  -->
-	<script>
-	$(document).ready(function(){
-		if(!"${vendors}"){
-			location.href="${vendorComboUrl}";
-		}
-	})
-	
-	</script>
+<script>
+		var goodsGrid;
+		$(document).ready(function() {
+			if (!"${vendors}") {
+				location.href = "${vendorComboUrl}";
+			}
+			goodsGrid = $("#goodsGrid");
+		})
+</script>
 	<br>
 	<p />
 	<br>
@@ -131,13 +135,13 @@
 					<kendo:dataSource-schema>
 				<kendo:dataSource-schema-model id="viNum">
 					<kendo:dataSource-schema-model-fields>
-						<kendo:dataSource-schema-model-field name="viNum" type="number" />
+						<kendo:dataSource-schema-model-field name="viNum" type="number" editable="fasle"  />
 						<kendo:dataSource-schema-model-field name="viName" type="String" />
 						<kendo:dataSource-schema-model-field name="viDesc" type="String" />
 						<kendo:dataSource-schema-model-field name="viAddress" type="String" />
 						<kendo:dataSource-schema-model-field name="viPhone" type="number" />
-						<kendo:dataSource-schema-model-field name="viCredat" type="data" />
-						<kendo:dataSource-schema-model-field name="viCretim" type="data" />
+						<kendo:dataSource-schema-model-field name="viCredat" type="data" editable="fasle"  />
+						<kendo:dataSource-schema-model-field name="viCretim" type="data" editable="fasle" />
 					
 					</kendo:dataSource-schema-model-fields>
 				</kendo:dataSource-schema-model>

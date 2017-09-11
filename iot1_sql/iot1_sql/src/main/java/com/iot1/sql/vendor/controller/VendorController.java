@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iot1.sql.vendor.dao.VendorDAO;
 import com.iot1.sql.vendor.dto.VendorInfo;
 import com.iot1.sql.vendor.service.VendorService;
 
@@ -20,9 +21,11 @@ import com.iot1.sql.vendor.service.VendorService;
 public class VendorController {
 	@Autowired
 	VendorService vs;
+	@Autowired
+	VendorDAO vDao;
 	
 	@RequestMapping(value="/vendor/list",method=RequestMethod.POST)
-	public @ResponseBody List<VendorInfo> getVendorInfoList(VendorInfo vi){
+	public @ResponseBody List<VendorInfo> getVendorInfoList(@RequestBody VendorInfo vi){
 		return vs.getVendorInfoList(vi);
 	}
 
@@ -40,13 +43,32 @@ public class VendorController {
         }
         
         model.addAttribute("vendors", result);
-        return "goods/goods_list";
+        return "goods/multi_list";
 	}
 	@RequestMapping(value="/vendor/create",method=RequestMethod.POST)
-	public @ResponseBody List<VendorInfo> saveVendorInfoList(@RequestBody VendorInfo[] VendorList){
-		for(VendorInfo vi : VendorList){
-			System.out.println(vi);
-		}
-		return null;
+	public @ResponseBody List<VendorInfo> insertVendorInfoList(@RequestBody VendorInfo[] vendorList,VendorInfo vi){
+		vs.insertVendorInfoList(vendorList);
+		return vs.getVendorInfoList(vi);
 	}
+	
+	@RequestMapping(value="/vendor/createone",method=RequestMethod.POST)
+	public @ResponseBody List<VendorInfo> insertVendorInfo(@RequestBody VendorInfo vi){
+		vs.insertVendorInfo(vi);
+		return vs.getVendorInfoList(vi);
+	}
+	@RequestMapping(value="/vendor/delete",method=RequestMethod.POST)
+	public @ResponseBody List<VendorInfo> deleteVendorInfo(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
+		for(VendorInfo vi2 : vendorList){
+			vDao.deleteVendorInfo(vi2);
+		}
+		return vs.getVendorInfoList(vi);
+	}
+	@RequestMapping(value="/vendor/update",method=RequestMethod.POST)
+	public @ResponseBody List<VendorInfo> updateVendorInfo(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
+		for(VendorInfo vi2 : vendorList){
+			vDao.updateVendorInfo(vi2);
+		}
+		return vs.getVendorInfoList(vi);
+	}
+	
 }

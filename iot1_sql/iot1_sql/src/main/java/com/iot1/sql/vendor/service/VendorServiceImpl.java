@@ -25,4 +25,28 @@ public class VendorServiceImpl implements VendorService {
 	public List<VendorInfo> getVendorInfoCombo() {
 		return vDao.selectVendorInfoCombo();
 	}
+
+	@Override
+	public int insertVendorInfoList(VendorInfo[] viList) {
+		int result = 0;
+		for(VendorInfo vi : viList){
+			result +=vDao.insertVendorInfo(vi);
+		}
+		return result;
+	}
+
+	@Override
+	public int insertVendorInfo(VendorInfo vi) {
+		return vDao.insertVendorInfo(vi);
+	}
+
+	@Override
+	public int deleteVendorInfo(VendorInfo vi) {
+		return vDao.deleteVendorInfo(vi);
+	}
+
+	@Override
+	public int updateVendorInfo(VendorInfo vi) {
+		return vDao.updateVendorInfo(vi);
+	}
 }

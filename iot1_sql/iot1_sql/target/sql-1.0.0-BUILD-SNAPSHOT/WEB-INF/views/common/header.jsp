@@ -40,9 +40,42 @@ $(document).ready(function(){
 	var nowUrl = "${nowUrl}";
 	var obj = $("a[href='" + nowUrl + "']").parent().attr("class","active");
 })
+var KendoItem = function(obj, grid,url, keyStr){
+	var selectValue = obj.dataItem(obj.select())[keyStr];
+	this.key = keyStr;
+	this.param = {};
+	this.param[keyStr]=selectValue;
+	var gridObj = grid.data("kendoGrid");
+	gridObj.dataSource.transport.param = this.param;
+	var reload = function(options){
+        $.ajax({
+        	type : "post",
+			url : url,
+			dataType : "json",
+			data : JSON.stringify(this.param),
+		    beforeSend: function(xhr) {
+		        xhr.setRequestHeader("Content-Type", "application/json");
+		    },
+		    success : function(result){
+		    	options.success(result);
+			},
+			error : function(xhr){
+				alert(xhr.responseText);
+			}
+        });
+	}
+	this.send = function(){
+	    gridObj.dataSource.transport.read = reload;
+		gridObj.dataSource.read();
+	}
+}
 var JSException = function(msg){
 	alert(msg);
 	console.log(msg);
+}
+var pageMove = function(page){
+	page = page.replace("/",":");
+	location.href = "${rootPath}/url/" + page;
 }
 var AjaxUtil = function (url, params, type, dataType){
 	if(!url){
@@ -52,7 +85,7 @@ var AjaxUtil = function (url, params, type, dataType){
 	this.url = "${rootPath}/" + url;
 	
 	var generateJSON = function(params){
-		if(!params) return "";//params가null이나 undifind일때 빈문자를 리턴한다.
+		if(!params) return "";
 		var paramArr = params.split(",");
 		var data = {};
 		for(var i=0,max=paramArr.length;i<max;i++){
@@ -71,7 +104,6 @@ var AjaxUtil = function (url, params, type, dataType){
 	this.param = generateJSON(params);
 	this.callbackSuccess = function(json){
     	var url = json.url;
-    	var data = json.data;
     	var msg = json.msg;
     	if(msg){
     		alert(msg);

@@ -11,7 +11,7 @@
 	<typeAliases>
     	<typeAlias alias="user" type="com.iot1.sql.user.dao.dto.UserInfo"/>
     	<typeAlias alias="goods" type="com.iot1.sql.goods.dto.GoodsInfo"/>
-    	<typeAlias alias="vendor1" type="com.iot1.sql.vendor.dto.vendorInfo"/>
+    	<typeAlias alias="vendor1" type="com.iot1.sql.vendor.dto.VendorInfo"/>
     	
 	</typeAliases>
 	<mappers>

@@ -1,0 +1,22 @@
+select substr(gicredat,1,4),  substr(gicredat,1,4) gicredat 칼럼에 1번째부터 4자리
+substr(gicredat,5,2), 5번째부터 2자리
+substr(gicredat,7,2)  7번째 부터 2자리
+from goods_info;
+
+
+concat 사용 법 및 substr 사용법
+update goods_info
+set gicredat=concat(substr(gicredat,1,4),'-',
+substr(gicredat,5,2),'-',
+substr(gicredat,7,2))
+
+
+alter table goods_info_test
+modify vicredat varchar(10);
+로 10줄로 늘려야함
+
+
+테이블 전체 복사(프라이머리 키 나 유니크 키는 가져가지 않음. 테이블 수정 시 복사하고 하기. 데이터 보존을 위해서!)
+create table goods_info_tmp
+as
+select * from goods_info;
