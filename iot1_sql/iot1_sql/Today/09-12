@@ -1,0 +1,22 @@
+toolbar-item 클릭이벤트.
+ 
+ select="onselect" <<딱 클릭하는 순간  안먹힘.
+ change="onchange"선택이 된순간 먹히는것
+ 
+ bound 트리에 집어넣었을때(데이터가 완료된 시점)
+ bounding  트리에 집어넣고있는상황
+ 
+ treeview.select가 하는일.--선택되어있는 treeload를 가지고온다는것.
+treeload구조 폴더구조 아래로 펼쳐지는것.
+
+window.selectednode를 한순간 최상위 객체에 selectnode를 넣은것이라 어디에서든 쓸수있다.
+
+select 된 node의 데이터를 가져오는게 treeview.dataitem이고 그안에 window.selectnode를 파라메터로 대입하면
+그게 구조체로 바뀐다.(컬럼들의 name들)
+
+db/list/tree 커넥션만하고
+db/connectre 가 실제 정보를 가져온다.
+
+datatextfild
+
+DbDAOImpl까지함.

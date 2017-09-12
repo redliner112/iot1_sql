@@ -1,0 +1,13 @@
+create table db_info(
+dinum int(5) not null auto_increment,
+uinum int not null,
+dbtitle varchar(100) not null,
+dburl varchar(100) not null,
+dbms varchar(100) null default'',
+id varchar(100) not null,
+pwd varchar(100) not null,
+port char(4) not null,
+drivername varchar(100) not null
+default 'org.mariadb.jdbc.Driver',
+primary key(dinum)
+)
