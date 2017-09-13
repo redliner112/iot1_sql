@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.iot1.sql.db.dto.DataBase;
 import com.iot1.sql.db.dto.DbInfo;
+import com.iot1.sql.db.dto.Table;
 import com.iot1.sql.db.service.DbService;
 
 @Controller
@@ -38,7 +38,7 @@ public class DbController {
 		return map;
 	}
 	@RequestMapping(value="/db/table/list",method=RequestMethod.POST)
-	public @ResponseBody ModelMap getTableList(@RequestBody DataBase db, ModelMap map){
+	public @ResponseBody ModelMap getTableList(@RequestBody Table table, ModelMap map){
 		try{
 			map.put("tableList", ds.getTableList(db));
 		}catch(Exception e){
