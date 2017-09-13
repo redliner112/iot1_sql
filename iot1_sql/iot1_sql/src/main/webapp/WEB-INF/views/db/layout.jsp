@@ -1,42 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <c:url var="dbRUrl" value="/db/list/tree" />
-<c:url var="dbConecteUrl" value="/db/conecte" />
-<title>IOT_SQL</title>
-</head>
 <script>
 var treeview;
 function onBound(){
 	treeview = $('#treeview').data('kendoTreeView');
 }
+function onChange(e){
+}
+function onSelect(e){
+	window.selectedNode = e.node;
+	var data = treeview.dataItem(window.selectedNode);
+	if(data.database){
+		var au = new AjaxUtil("db/table/list");
+		var param = {};
+		param["database"] = data.database;
+		au.param = JSON.stringify(param);
+		au.setCallbackSuccess(callbackForTreeItem2);
+		au.send();
+	}
+}
+function callbackForTreeItem2(result){
+	if(result.error){
+		alert(result.error);
+		return;
+	}
+	for(var i=0, max=result.tableList.length;i<max;i++){
+		var table = result.tableList[i];
+		treeview.append({
+			tableName: table.tableName
+        }, treeview.select());
+	}
+	$("#btnConnect").text("접속해제");
+}
+function callbackForTreeItem(result){
+	if(result.error){
+		alert(result.error);
+		return;
+	}
+	for(var i=0, max=result.databaseList.length;i<max;i++){
+		var database = result.databaseList[i];
+		treeview.append({
+			database: database.database
+        }, treeview.select());
+	}
+	$("#btnConnect").text("접속해제");
+}
 function toolbarEvent(e){
 	if($("#btnConnect").text()=="접속해제"){
 		treeview.dataSource.read();
-		$("#btnConnect").text("접속")
+		$("#btnConnect").text("접속");
 		return;
 	}
-	
-}
-function treeSelect(){
-	
+	var data = treeview.dataItem(window.selectedNode);
+	if(data && data.diNum){
+		//$('#treeview>.k-group>.k-item>.k-group').remove();
+		//treeview.dataSource.read();
+		var au = new AjaxUtil("db/connecte");
+		var param = {};
+		param["diNum"] = data.diNum;
+		au.param = JSON.stringify(param);
+		au.setCallbackSuccess(callbackForTreeItem);
+		au.send();
+	}else{
+		alert("접속하실 데이터베이스를 선택해주세요");
+	}
 }
 </script>
-<body>
-<br>
-	<p />
-	<br>
-	<p />
-	<br>
-	<p />
 
 <kendo:splitter name="vertical" orientation="vertical">
     <kendo:splitter-panes>
         <kendo:splitter-pane id="top-pane" collapsible="false">
             <kendo:splitter-pane-content>
                 <kendo:splitter name="horizontal" style="height: 100%; width: 100%;">
-				    
-				    
 				    <kendo:splitter-panes>
 				        <kendo:splitter-pane id="left-pane" collapsible="true" size="220px">
 				            <kendo:splitter-pane-content >
@@ -46,7 +84,7 @@ function treeSelect(){
 											<kendo:toolBar-item type="button" text="접속" id="btnConnect" click="toolbarEvent"></kendo:toolBar-item>
 										</kendo:toolBar-items>
 									</kendo:toolBar>
-									 <kendo:treeView name="treeview" dataTextField="<%= new String[]{\"dbTitle\", \"database\",\"tableName\"} %>" change="treeSelect"  
+									 <kendo:treeView name="treeview" dataTextField="<%= new String[]{\"dbTitle\", \"database\",\"tableName\"} %>" change="onChange" select="onSelect" 
 									 dataBound="onBound">
 									     <kendo:dataSource>
 									         <kendo:dataSource-transport>
@@ -67,8 +105,6 @@ function treeSelect(){
                                 </div>
 				            </kendo:splitter-pane-content>
 				        </kendo:splitter-pane>
-				        
-				        
 				        <kendo:splitter-pane id="center-pane" collapsible="false">
 				            <kendo:splitter-pane-content>
 								<kendo:splitter name="vertical1" orientation="vertical" style="height: 100%; width: 100%;">
@@ -83,6 +119,7 @@ function treeSelect(){
 						                		<h3>Inner splitter / middle-middle pane</h3>
 			                                </div>
 		       							</kendo:splitter-pane>
+		       							
 	       							</kendo:splitter-panes>
        							</kendo:splitter>
 				            </kendo:splitter-pane-content>
@@ -91,8 +128,6 @@ function treeSelect(){
 				</kendo:splitter>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
-        
-        
         <kendo:splitter-pane id="middle-pane" collapsible="false" size="100px">
             <kendo:splitter-pane-content>
                 <div class="pane-content">
@@ -101,8 +136,6 @@ function treeSelect(){
                 </div>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
-        
-        
         <kendo:splitter-pane id="bottom-pane" collapsible="false" resizable="false" size="20px" scrollable="false">
             <kendo:splitter-pane-content>
 	                <b>MySql Tool For Web</b>
@@ -110,8 +143,6 @@ function treeSelect(){
         </kendo:splitter-pane>
     </kendo:splitter-panes>
 </kendo:splitter>
-
-
 
 <style>
     #vertical {
@@ -164,5 +195,3 @@ function treeSelect(){
         width: 80%;
     }
 </style>
-</body>
-</html>

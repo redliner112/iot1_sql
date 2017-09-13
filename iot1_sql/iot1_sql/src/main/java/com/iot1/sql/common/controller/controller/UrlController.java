@@ -1,4 +1,4 @@
-package com.iot1.sql.common.controller;
+package com.iot1.sql.common.controller.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
