@@ -24,7 +24,7 @@ public class DbController {
 		return ds.getDbInfoList(di);
 	}
 	
-	@RequestMapping(value="/db/conecte",method=RequestMethod.POST)
+	@RequestMapping(value="/db/connecte",method=RequestMethod.POST)
 	public @ResponseBody ModelMap getConnectDB(@RequestBody DbInfo di, ModelMap map){
 		try{
 			if(ds.isConnecteDB(di)){
