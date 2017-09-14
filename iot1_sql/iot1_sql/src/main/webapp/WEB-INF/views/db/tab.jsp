@@ -20,23 +20,6 @@
 							<kendo:grid-column title="널허용여부" field="isNullable">
 							</kendo:grid-column>
 						</kendo:grid-columns>
-						<kendo:dataSource >
-							<kendo:dataSource-transport>
-								<kendo:dataSource-transport-read url="${rUrl}" dataType="json" type="POST" 
-								contentType="application/json" />
-								<kendo:dataSource-transport-parameterMap>
-									<script>
-					                	function parameterMap(options) { 
-					                		return JSON.stringify(options);
-					                	}
-				                	</script>
-								</kendo:dataSource-transport-parameterMap>
-							</kendo:dataSource-transport>
-							<kendo:dataSource-schema>
-								<kendo:dataSource-schema-model id="columnName">
-								</kendo:dataSource-schema-model>
-							</kendo:dataSource-schema>
-						</kendo:dataSource>
 						
 					</kendo:grid>
 				</div>
@@ -45,10 +28,7 @@
 		<kendo:tabStrip-item text="쿼리">
 			<kendo:tabStrip-item-content>
 				<div class="weather">
-					<h2>
-						29<span>&ordm;C</span>
-					</h2>
-					<p>Sunny weather in New York.</p>
+					<textarea id="query">이야호</textarea>
 				</div>
 			</kendo:tabStrip-item-content>
 		</kendo:tabStrip-item>

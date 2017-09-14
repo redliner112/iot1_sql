@@ -5,7 +5,7 @@
 <c:set var="dbTreeJsp" value="/WEB-INF/views/db/db_treeview.jsp" />
 <c:set var="tabJsp" value="/WEB-INF/views/db/tab.jsp" />
 <c:set var="tableInfoJsp" value="/WEB-INF/views/db/table_info.jsp" />
-<c:set var="tableInfoUrl" value="/db/table/info" />
+<c:url var="tableInfoUrl" value="/db/table/info" />
 
 
 <title>IOT_SQL</title>
@@ -15,6 +15,53 @@ var treeview;
 
 function onBound(){
 	treeview = $('#treeview').data('kendoTreeView');
+	$( "#query" ).keydown(function(e) {
+		var keyCode = e.keyCode || e.which;
+		if(keyCode==120){
+			var sql;
+			var sqls;
+			if(e.ctrlKey && keyCode==120 && e.shiftKey){
+				sql = this.value;
+				var cursor = this.selectionStart;
+				var startSql = sql.substr(0,cursor);
+				var startSap = startSql.lastIndexOf(";")
+				startSql = startSql.substr(startSap+1);
+				var endSql = sql.substr(cursor);
+				var endSap = endSql.indexOf(";");
+				if(endSap==-1) {
+					endSap=sql.length;
+				}
+				endSql = endSql.substr(0,endSap);
+				sql = startSql + endSql;
+			}else if(e.ctrlKey && keyCode==120){
+				sql = this.value.substr(this.selectionStart, this.selectionEnd - this.selectionStart);
+			}else if(keyCode==120){
+				sql = this.value;
+			}
+			if(sql){
+				sql = sql.trim();
+				sqls = sql.split(";");
+				if(sqls.length==1){
+					var au = new AjaxUtil("db/run/sql");
+					var param = {};
+					param["sql"] = sql;
+					au.param = JSON.stringify(param);
+					au.setCallbackSuccess(callbackSql);
+					au.send();
+					return;
+				}else if(sqls){
+					
+					return;
+				}
+			}
+			
+		}
+	});
+}
+
+function callbackSql(result){
+	var key = result.key;
+	var obj = result[key];
 }
 
 function treeSelect(){
@@ -84,6 +131,8 @@ function toolbarEvent(e){
 <c:import url="${menuUrl}"/> 
 <kendo:splitter name="vertical" orientation="vertical">
     <kendo:splitter-panes>
+    
+    
         <kendo:splitter-pane id="top-pane" collapsible="false">
             <kendo:splitter-pane-content>
                 <kendo:splitter name="horizontal" style="height: 100%; width: 100%;">
@@ -95,13 +144,15 @@ function toolbarEvent(e){
                                 </div>
 				            </kendo:splitter-pane-content>
 				        </kendo:splitter-pane>
+				        
+				        
 				        <kendo:splitter-pane id="center-pane" collapsible="false">
 				            <kendo:splitter-pane-content>
 								<kendo:splitter name="vertical1" orientation="vertical" style="height: 100%; width: 100%;">
 				   					<kendo:splitter-panes>
 		       							<kendo:splitter-pane id="top-pane" collapsible="false" >
 							                <div class="pane-content">
-						                		<c:import url="${tabJsp }"/>
+						                		<c:import url="${tabJsp}"/>
 			                                </div>
 		       							</kendo:splitter-pane>
 		       							<kendo:splitter-pane id="middle-pane" collapsible="true" >
@@ -117,6 +168,8 @@ function toolbarEvent(e){
 				</kendo:splitter>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
+        
+        
         <kendo:splitter-pane id="middle-pane" collapsible="false" size="100px">
             <kendo:splitter-pane-content>
                 <div class="pane-content">
@@ -125,6 +178,8 @@ function toolbarEvent(e){
                 </div>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
+        
+        
         <kendo:splitter-pane id="bottom-pane" collapsible="false" resizable="false" size="20px" scrollable="false">
             <kendo:splitter-pane-content>
 	                <b>MySql Tool For Web</b>
@@ -134,62 +189,61 @@ function toolbarEvent(e){
 </kendo:splitter>
 </body>
 	<style>
-#vertical {
-	height: 580px;
-	margin: 0 auto;
-}
+  #vertical {
+        height: 580px;
+        margin: 0 auto;
+    }
 
-#middle-pane {
-	color: #000;
-	background-color: #fff;
-}
+    #middle-pane { 
+        color: #000; background-color: #fff; 
+    }
 
-#bottom-pane {
-	color: #000;
-	background-color: #fff;
-}
+    #bottom-pane { 
+        color: #000; background-color: #fff; 
+    }
 
-#left-pane, #center-pane, #right-pane {
-	color: #000;
-	background-color: #fff;
-}
+    #left-pane, #center-pane, #right-pane  { 
+        color: #000; background-color: #fff;
+    }
 
-.pane-content {
-	padding: 0 10px;
-}
+    .pane-content {
+        padding: 0 10px;
+    }
+    
 
-#toolbar {
-	border-width: 0 0 1px;
-}
-
-.user-image {
-	margin: 0 .5em;
-}
-
-#example {
-	height: 500px;
-}
-
-#example .box p {
-	padding-bottom: 5px;
-}
-
-#content .demo-section {
-	margin: 0;
-	padding: 10px;
-	border-width: 0 0 1px 0;
-}
-
-#content .demo-section label {
-	display: inline-block;
-	width: 40px;
-	text-align: right;
-	line-height: 2.5em;
-	vertical-align: middle;
-}
-
-#content .demo-section input {
-	width: 80%;
-}
+    #toolbar {
+        border-width: 0 0 1px;
+    }
+    .user-image {
+        margin: 0 .5em;
+    }
+    #example {
+        height: 500px;
+    }
+    #example .box p {
+        padding-bottom: 5px;
+    }
+    #content .demo-section {
+        margin: 0;
+        padding: 10px;
+        border-width: 0 0 1px 0;
+    }
+    #content .demo-section label {
+        display: inline-block;
+        width: 40px;
+        text-align: right;
+        line-height: 2.5em;
+        vertical-align: middle;
+    }
+    #content .demo-section input {
+        width: 80%;
+    }
+    .k-button >.k-toolbar-first-visible >.k-toolbar-last-visible{
+    	color:red;
+    }
+    a[class='k-link'], tr{ 
+		text-align: center;
+		color:blue;
+	}
 </style>
 </html>

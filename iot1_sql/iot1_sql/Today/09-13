@@ -1,2 +1,97 @@
-include action -  파라메터를 넘기지않는이상못씀
-		  drective -  넣으면 그냥쓸수있음.
+include 					action -  파라메터를 넘기지않는이상못씀(별도의 자바파일이 생긴다?) 
+										 변수를 사용할수없다.
+ex) <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+
+
+@가들어가면 무조건   drective -  넣으면 그냥쓸수있음.(jsp코드가 그대로온것.)
+		  action인클루드는 화면에 그릴게 너무많은데 분리만 하기위해서 쓴다고 생각하자.
+ex)<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
+		  
+태그라이브러리 2개 사용중.
+ jstl pom에있음.
+ 자바꺼.
+ 
+ function onbound
+ 텍스트 에어리어에 div태그를 집어넣었다
+ tab에 query로 id맥임.
+ var keyCode = e.keyCode ||e.which; 브라우저마다 키코드 받아오는 방식이 달라서  or써줌.
+ e.ctrlKey,e.shiftKey 브라우저가 주는것. 불린이라 true faulse뜸.
+ var sql = this.value; 
+			var cursor = this.selectionStart; 커서선택
+			var startSql = sql.substr(0,cursor); 0부터 커서잇는데가지
+			var startSap = startSql.lastIndexOf(";") 
+			이렇게썼을때 ";select *from cal;select*fromuser_(커서여기)info;커서있는부분에서 마지막까지만 찾음.
+			0부터 짜르란 이야기.??
+			startSql = startSql.substr(startSap+1); startsql은 select*fromuser_이거.  
+			var endSql = sql.substr(cursor); endsql info;여기까지.
+			var endSap = endSql.indexOf(";"); indexof  중간의 ;를 찾음.
+			if(endSap==-1){
+				endSap=sql.length;
+			}
+			endSql = endSql.substr(0,endSap);
+			  -info;까지.
+			sql = startSql + endSql;
+			 - select*fromuser_info; 완성.
+			alert(sql);
+			alert(this.selectionStart);
+		}else if(e.ctrlKey && keyCode==120){
+			var t = this.value.substr(this.selectionStart, this.selectionEnd - this.selectionStart);
+			alert(t);
+		}else if(keyCode==120){
+		sql = this.value;	
+	}
+	if(sql){
+		sql = sql.trim();  공백제거.(빈문자있을지모르니)
+		sqls = sql.split(";");  (
+		if(sqls.length==1){ 	단일쿼리일때에는 무조건 이것.
+			var au = new AjaxUtil("db/run/sql");
+			var param = {};
+			au.param = JSON.stringify(param);
+			au.setCallbackSuccess(callbackSql);
+			au.send();
+			return;
+		}else if(sqls){
+			return;
+		}
+		}
+	
+	});
+}
+
+public Map<String, Object> runSql(Map<String, String> pm) throws Exception {
+		String sql = pm.get("sql");
+		sql = sql.trim();
+		Map<String,Object> map = new HashMap<String,Object>();
+		Statement statement = dsf.getSqlSession().getConnection().createStatement();
+		
+		if(sql.indexOf("select") ==0){
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			ResultSetMetaData metadata = resultSet.getMetaData();
+			int columnCount = metadata.getColumnCount();
+			List<String> columns = new ArrayList<String>();
+			for(int i=1;i<=columnCount; i++){
+				String columnName = metadata.getColumnName(i);
+				columns.add(columnName);
+			}
+			List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+			while(resultSet.next()){
+				Map<String,String> hm = new HashMap<String,String>();
+				for(String column : columns){
+					hm.put(column, resultSet.getString(column));
+				}
+				list.add(hm);
+			}
+			map.put("type", "select");
+			map.put("list", list);
+			map.put("columns", columns);
+		}else{
+			int result = statement.executeUpdate(sql);
+			map.put("type", "save");
+			map.put("row", result);
+		}
+		return map;
+	}
+
+
+ 

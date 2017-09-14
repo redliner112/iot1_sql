@@ -1,6 +1,7 @@
 package com.iot1.sql.db.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iot1.sql.db.dto.DataBase;
 import com.iot1.sql.db.dto.DbInfo;
 import com.iot1.sql.db.dto.Table;
 import com.iot1.sql.db.service.DbService;
@@ -38,9 +40,29 @@ public class DbController {
 		return map;
 	}
 	@RequestMapping(value="/db/table/list",method=RequestMethod.POST)
-	public @ResponseBody ModelMap getTableList(@RequestBody Table table, ModelMap map){
+	public @ResponseBody ModelMap getTableList(@RequestBody DataBase db, ModelMap map){
 		try{
 			map.put("tableList", ds.getTableList(db));
+		}catch(Exception e){
+			map.put("error", e.getMessage());
+		}
+		return map;
+	}
+	@RequestMapping(value="/db/table/info",method=RequestMethod.POST)
+	public @ResponseBody ModelMap getTableInfo(@RequestBody Table table, ModelMap map){
+		try{
+			map.put("tableList", ds.getTableInfo(table));
+			map.put("key", "tableList");
+		}catch(Exception e){
+			map.put("error", e.getMessage());
+		}
+		return map;
+	}
+	@RequestMapping(value="/db/run/sql", method = RequestMethod.POST)
+	public @ResponseBody ModelMap getSqlResult(@RequestBody Map<String,String> pm,ModelMap map){
+		try{
+			map.put("resultMap",ds.runSql(pm));
+			map.put("key","resultMap");
 		}catch(Exception e){
 			map.put("error", e.getMessage());
 		}
