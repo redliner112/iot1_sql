@@ -34,7 +34,8 @@
 									var cursor = this.selectionStart;
 									var startSql = sql.substr(0, cursor);
 									var startSap = startSql.lastIndexOf(";")
-									startSql = startSql.substr(startSap + 1);
+									startSql = startSql.substr(startSap+1);
+									
 									var endSql = sql.substr(cursor);
 									var endSap = endSql.indexOf(";");
 									if (endSap == -1) {
@@ -42,13 +43,20 @@
 									}
 									endSql = endSql.substr(0, endSap);
 									sql = startSql + endSql;
+									
 								} else if (e.ctrlKey && keyCode == 120) {
 									sql = this.value.substr(
 											this.selectionStart,
 											this.selectionEnd
 													- this.selectionStart);
 								} else if (keyCode == 120) {
+							
 									sql = this.value;
+									var sqlSap = sql.indexOf(";");
+									if(sqlSap == -1){
+										sqlSap = sql.length;
+									}
+									sql=sql.substr(0,sqlSap);
 								}
 								if (sql) {
 									sql = sql.trim();
@@ -71,26 +79,36 @@
 			})
 
 	function callbackSql(result) {
-		var key = result.key;
-		var obj = result[key];
-		var gridData = obj.list;
-		
 		try{
-			$('#resultGrid').kendoGrid('destroy').empty();
-		}catch(e){
-			
+		      // ID가 rsultGrid 곳을 초기화 시켜줌. 
+		      $('#resultGrid').kendoGrid('destroy').empty();
+
+		   }catch(e){
+		      
+		   }
+		   
+		   if(result.msg == "S")
+		   {
+		      var key = result.key;
+		      var obj = result[key];
+		      var gridData = obj.list;
+		      var gridParam = {
+		            dataSource : {
+		               data : gridData,
+		               pageSize : 5
+		            },
+		            editable : false,
+		            sortable : true,
+		            pageable : true
+		      }
+		      $("#sqlLog").append("성공하였습니다." + "</br>");
+		      var grid = $("#resultGrid").kendoGrid(gridParam);
+		   }
+		   else
+		   {
+		      $("#sqlLog").append("실패하였습니다. 사유 : " + result.error + "</br>");
+		   }
 		}
-		var gridParam = {
-				dataSource:{
-					data:gridData,
-					pageSize:5
-				},
-				editable:false,
-				sortable:true,
-				pageable:true
-		}
-		var grid = $("#resultGrid").kendoGrid(gridParam);
-	}
 
 	function treeSelect() {
 		window.selectedNode = treeview.select();
@@ -206,8 +224,7 @@
 				size="100px">
 				<kendo:splitter-pane-content>
 					<div class="pane-content">
-						<h3>Outer splitter / middle pane</h3>
-						<p>Resizable only.</p>
+							<div id="resultGrid" style="width: 100%"></div>
 					</div>
 				</kendo:splitter-pane-content>
 			</kendo:splitter-pane>

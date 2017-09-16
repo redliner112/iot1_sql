@@ -63,8 +63,10 @@ public class DbController {
 		try{
 			map.put("resultMap",ds.runSql(pm));
 			map.put("key","resultMap");
+			map.put("msg", "S");
 		}catch(Exception e){
 			map.put("error", e.getMessage());
+			map.put("msg", "N");
 		}
 		return map;
 	}
