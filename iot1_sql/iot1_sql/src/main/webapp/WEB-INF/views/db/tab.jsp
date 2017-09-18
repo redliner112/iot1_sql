@@ -28,7 +28,7 @@
 		<kendo:tabStrip-item text="쿼리">
 			<kendo:tabStrip-item-content>
 				<div class="weather">
-					<textarea id="query">select *from goods_info;</textarea>
+					<textarea id="query">select *from goods_info;select *from user_info;</textarea>
 				</div>
 			</kendo:tabStrip-item-content>
 		</kendo:tabStrip-item>
