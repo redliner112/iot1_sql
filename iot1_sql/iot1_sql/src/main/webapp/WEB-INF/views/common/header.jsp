@@ -16,6 +16,7 @@
 <script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=${pVar}"/>"></script>
 <script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=${pVar}"/>"></script>
 
+<script src="<c:url value="/resources/js/js2/console.js?version=${pVar}"/>"></script>
 <script src="<c:url value='/resources/js/kendo.all.min.js' />"></script>
 <script src="<c:url value='/resources/js/kendo.timezones.min.js' />"></script>
 <script src="<c:url value='/resources/shared/js/console.js'/>"></script>

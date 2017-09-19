@@ -1,0 +1,22 @@
+
+프로세서 intel i5-6400 cpu@2.70GHz
+램 8
+시스템종류 윈도우7
+os윈도우64비트
+컴파일러 jdk1.8
+ide 이클립스
+build 메이븐
+test도구 junit x.x
+형상관리도구 github
+dbms mariadb
+
+자바는 import를 하지않아도 되는이유? Object때문에.
+상속받았을떄만 접근할수있는 접근제어자. protect
+
+캡쳐3개.
+이클립스 깃리파지토리 되있는것. 
+톰캣킨후 heidisql
+localhost
+
+swith문.
+breck문 이 마지막으로 되있는 값이 찍힌다.

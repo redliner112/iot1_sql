@@ -229,7 +229,7 @@
 				size="100px">
 				<kendo:splitter-pane-content>
 					<div class="pane-content">
-							<div id="resultGrid" style="width: 100%"></div>
+							<div id="sqlLog" style="width: 100%"></div>
 					</div>
 				</kendo:splitter-pane-content>
 			</kendo:splitter-pane>
