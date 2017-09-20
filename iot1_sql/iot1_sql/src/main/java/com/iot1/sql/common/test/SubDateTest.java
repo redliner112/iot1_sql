@@ -11,12 +11,5 @@ import junit.framework.TestCase;
 	        assertEquals(365, SubDate.getYearDay(2));
 	    }
 	    
-	        public static int getYearDay(int year) {
-	            return 1;
-	        }
 	    
-	        public static int getYearDay(int year) {
-	            if (year==1 ) return 0;
-	            else return 365;
-	        }
 }
