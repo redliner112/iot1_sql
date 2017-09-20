@@ -20,3 +20,37 @@ localhost
 
 swith문.
 breck문 이 마지막으로 되있는 값이 찍힌다.
+
+명령어.
+cmd에서 mysqld.exe console
+그뒤 ctrl+c누르면 cmd창 종료됨
+비밀번호 iot로 설정해놓음
+
+
+개발방법론.
+
+TDD 테스트 주도 개발(test driven develroment)
+	일반적인방법.
+1.설계
+2.개발
+3.에러<<여기부터가 테스트
+4.에러수정
+	TDD
+실패를 예상설계한다.
+예를들어 puls가 더하기는 확실한데 
+실패1.parameter가숫자가아닐때.
+실패2.더하기를 실패시킨다.
+실패3.return 이 제대로 나오는지 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -97,7 +97,9 @@
 		   {
 		      var key = result.key;
 		      var obj = result[key];
-		      var gridData = obj.list;
+		      var sqls = obj.sqls;
+		      var Listsqls = sqls.subList(1);
+		      
 		      var gridParam = {
 		            dataSource : {
 		               data : gridData,

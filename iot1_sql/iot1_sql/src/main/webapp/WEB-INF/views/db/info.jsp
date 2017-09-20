@@ -14,6 +14,13 @@
 			</kendo:tabStrip-item-content>
 		</kendo:tabStrip-item>
 		
+		<kendo:tabStrip-item text="컬럼정보2" selected="false">
+			<kendo:tabStrip-item-content>
+				<div class="weather">
+						<div id="resultGrid" style="width: 100%"></div>
+				</div>
+			</kendo:tabStrip-item-content>
+		</kendo:tabStrip-item>
 		
 	</kendo:tabStrip-items>
 </kendo:tabStrip>

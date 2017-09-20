@@ -97,6 +97,11 @@ public class DbDAOImpl extends SqlSessionDaoSupport implements DbDAO{
 	      List<String> sqls = pm.get("sqls");
 	      Map<String,Object> map = new HashMap<String,Object>();
 	      map.put("sqls", sqls);
+	      for(String sql2: sqls){
+	    	  int idx = sql2.indexOf("from");
+	    	  String name = sql2.substring(idx+5);
+	    	  System.out.println(name);
+	      }
 	      Statement statement = dsf.getSqlSession().getConnection().createStatement();
 	      for(int j=0; sqls.size()>j;j++){
 	         String sql = sqls.get(j).trim();
