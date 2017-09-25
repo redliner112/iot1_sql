@@ -1,0 +1,12 @@
+NPM 
+node package Module
+node package manager
+
+라이브러리와 프레임워크의 차이.
+부품만 제공하느냐? 중간단계를 제공해줄수있느냐의 차이.
+
+node js는 프레임워크이다.
+(유명한이유는 화면단 프레임워크인데 서버단도 건들일수있다
+nonblokingi i/o를 사용)
+server 		-	 화면단(퍼블리셔,웹디,코더)
+back-end	-	front-end

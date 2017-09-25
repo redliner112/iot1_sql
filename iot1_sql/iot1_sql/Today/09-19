@@ -42,8 +42,15 @@ TDD 테스트 주도 개발(test driven develroment)
 실패2.더하기를 실패시킨다.
 실패3.return 이 제대로 나오는지 
 
+getSsf
 
+before 
+test test의 내용만 읽어서 실행한다.
+after
 
+test 수행하기전에 before수행하고 after 수행하고 이걸 test하나하나마다 다한다.
+
+3번째 level1이 중요
 
 
 
