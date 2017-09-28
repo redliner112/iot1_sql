@@ -23,3 +23,10 @@
 <link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap.min.css?version=${pVar}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-table.css?version=${pVar}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=${pVar}"/>" />
+
+
+<link href="<c:url value='/resources/css/dashboard.css'/>" rel="stylesheet" />
+<script src="<c:url value='/resources/js/ie-emulation-modes-warning.js'/>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/holder.js'/>"></script>
+<script src="<c:url value='/resources/js/ie10-viewport-bug-workaround.js'/>"></script>
