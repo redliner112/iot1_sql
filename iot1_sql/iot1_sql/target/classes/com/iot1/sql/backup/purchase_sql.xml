@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="purchase" >
+
+<select id="SELECT_PURCHASE" parameterType="pm" resultType="pm">
+
+
+		select 
+	purchaseno,
+	orderdate,
+	clientno,
+	itemno,
+	deliverydate,
+	imcno,
+	managerno,
+	warehouseno,
+	projectno,
+	purchasestatus,
+	createuser,
+	createuser,
+	createdate,
+	modifieduser,
+	modifieddata
+		from purchase_management where 1=1
+<if test="purchaseNo!=null and purchaseNo!=''">
+			<!-- 거래처명검색 -->
+and clientno = #{clientno}
+</if>
+
+</select>
+
+<select id="UPDATELIST_PURCHASE" parameterType="pmi" resultType="pmi">
+
+
+			select 
+		pm.orderDate,
+		pm.clientno,
+		pm.managerno,
+		pm.warehouseno,
+		pm.purchaseno,
+		pm.itemno,
+		i.itemname,
+		i.warehousingcost,
+		imc.quantity,
+		imc.amount,
+		pm.createuser,
+		pm.createdate,
+		pm.modifieduser,
+		pm.modifieddata
+			from purchase_management pm  , item_middle_client imc , item i	
+			where pm.imcno = imc.imcno and i.itemcode = imc.itemcode 
+;
+<if test="purchaseNo!=null and purchaseNo!=''">
+			<!-- 거래처명검색 -->
+and clientno = #{clientno}
+</if>
+
+</select>
+
+</mapper>
+
+
+
